@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <main>
+    <section>
+      <header>
+        <h1>Pron&oacute;stico diario</h1>
+      </header>
+      <p>Ciudad
+        <label for="txtCiudad">Ingrese ciudad:</label>
+        <input type="text" id="txtCiudad" placeholder="ciudad">
+      </p>
+      <p>Pa&iacute;s
+        <select name="sel_paises" id="sel_paises">
+          <option value="">seleccione...</option>
+          <option value="uy">Uruguay</option>
+          <option value="ar">Argentina</option>
+          <option value="br">Brasil</option>
+        </select>
+      </p>
+      <p>
+        <label for="txtDias">Ingrese cantidad de dias:</label>
+        <input type="number" id="txtDias" placeholder="Dias">
+      </p>
+      <input type="button" id="btnConsultar" value="Consultar">
+      </section>
+      <section>
+        <p id="msg"></p>
+      </section>
+    </section>
+  </main>
+  <footer></footer>
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script type="module" src="js/script.js"></script>
+</body>
+</html>

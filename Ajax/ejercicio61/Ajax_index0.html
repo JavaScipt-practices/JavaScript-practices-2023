@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $(document).ready(function () {
+        //Aquí irá todo lo que tiene que ver con la manipulación del documento.
+
+        $("#btnConsulta").on("click", function () {
+          try {
+            var miciudad = $("#txtCiudad").val();
+            var mipais = $("#sel_paises").val();
+
+            if (!miciudad) {
+              throw new Error("Favor de ingresar la ciudad");
+            }
+            if (!mipais) {
+              throw "Favor seleccione el país";
+            }
+
+            // Se ejecuta si esta todo bien:
+            //Invoco API
+            var url =
+              "http://api.openweathermap.org/data/2.5/weather/?appid=e62b2530fdb5f4ba3559c07c8634e5c7&lang=es&units=metric&q=" +
+              miciudad +
+              "," +
+              mipais +
+              "";
+            //Permite hacer un request al servidor
+            $.ajax({
+              //url de la api
+              url: url,
+              //tipo de operacion
+              type: "GET",
+              //Tipo de dato que espero que me devuelva el servidor
+              dataType: "json",
+              //A la clave success le paso un funcion como parametro
+              success: function (respuesta) {
+                console.log(respuesta);
+                $("#resultado_pronostico").html(
+                  `<u>Datos de: ${miciudad}</u><br>` +
+                    "Temperatura: " +
+                    respuesta.main.temp +
+                    " " +
+                    "Temperatura maxima: " +
+                    respuesta.main.temp_max +
+                    " " +
+                    "Temperatura minima: " +
+                    respuesta.main.temp_min +
+                    " Main: " +
+                    respuesta.weather[0].main +
+                    " " +
+                    "Descripcion: " +
+                    respuesta.weather[0].description
+                );
+              },
+              error: function (xml, status, error) {
+                $("#resultado_pronostico").text(error);
+              },
+            });
+          } catch (e) {
+            alert(e);
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <section>
+        <h1>Pron&oacute;stico diario</h1>
+
+        <p>
+          Ciudad
+          <label for="txtCiudad">Ingrese ciudad:</label>
+          <input type="text" id="txtCiudad" placeholder="ciudad" />
+        </p>
+
+        <p>
+          Pa&iacute;s
+          <select name="sel_paises" id="sel_paises">
+            <option value="">seleccione...</option>
+            <option value="uy">Uruguay</option>
+            <option value="ar">Argentina</option>
+            <option value="br">Brasil</option>
+          </select>
+        </p>
+
+        <input type="button" id="btnConsulta" value="Consultar" />
+      </section>
+
+      <section>
+        <p id="resultado_pronostico"></p>
+      </section>
+    </main>
+  </body>
+</html>
